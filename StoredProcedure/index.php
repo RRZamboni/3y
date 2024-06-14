@@ -1,16 +1,22 @@
+<?php
+   // 1) Incluindo a conexao!!!
+   include("conexao/conexao.php");
+
+   // 2) Chamando a Procedure
+   $resultado = mysqli_query($con,"CALL todosRegistros();") 
+   or die("Erro na Procedure".mysqli_error()); 
+
+
+?>
+
 
 <!DOCTYPE html>
 <html>
    <head>
       <title>Stored Procedure</title>
-	  <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+      <link rel="stylesheet" 
+         href="bootstrap/css/bootstrap.min.css">
+      <script src="bootstrap/js/bootstrap.min.js"></script>  
    </head>
    <body>
       <div class="container">
@@ -26,7 +32,19 @@
                <th>Estoque</th>      
                <th>Preço</th>      
             </thead>
-
+               <?php
+                  while($linha = mysqli_fetch_array($resultado)) 
+                  {
+                     echo "
+                           <tr>
+                              <td>".$linha['codigo']."</td>
+                              <td>".$linha['descricao']."</td>
+                              <td>".$linha['estoque']."</td>
+                              <td>".$linha['preco']."</td>
+                           </tr>
+                          ";
+                  }
+               ?>
          </table>
 
       </div>
